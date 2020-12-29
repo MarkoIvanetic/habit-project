@@ -1,18 +1,6 @@
 {
   "name": "habit-project",
-  "version": "0.0.1",
-  "description": "Unnamed habit project",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MarkoIvanetic/habit-project.git"
-  },
-  "author": "Marko Ivanetić",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/MarkoIvanetic/habit-project/issues"
-  },
-  "homepage": "https://github.com/MarkoIvanetic/habit-project#readme",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
