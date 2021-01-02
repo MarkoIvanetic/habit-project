@@ -1,26 +1,47 @@
-import React, { useContext } from "react";
-import { FirebaseContext } from "./firebase/index";
+import React, { useMemo, useState } from "react";
 // import logo from "./logo.svg";
 import "./App.css";
+import useFirestore from "./hooks/useFirebaseStore";
 
 function App() {
-  // console.log(firebase);
-  const firebaseContext = useContext(FirebaseContext);
-  console.log(firebaseContext);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
-  return <h1>test</h1>;
+  const { users, addUser } = useFirestore();
 
-  // return (
-  //   <div className="App">
-  //     <header className="App-header">
-  //       <img src={logo} className="App-logo" alt="logo" />
-  //       <p>
-  //         Edit <code>src/App.tsx</code> and save to reload.
-  //       </p>
-  //       {/* <TodoList></TodoList> */}
-  //     </header>
-  //   </div>
-  // );
+  useMemo(() => {
+    console.log(users);
+  }, [users]);
+
+  return (
+    <div className="App">
+      {users?.map((user) => {
+        return <p key={user.id}>{`${user.firstName} ${user.lastName}`}</p>;
+      })}
+
+      <input
+        type="text"
+        value={firstName}
+        onChange={(e) => {
+          setFirstName(e.target.value);
+        }}
+      />
+      <input
+        type="text"
+        value={lastName}
+        onChange={(e) => {
+          setLastName(e.target.value);
+        }}
+      />
+      <button
+        onClick={() => {
+          addUser({ firstName, lastName });
+        }}
+      >
+        Add user
+      </button>
+    </div>
+  );
 }
 
 export default App;
