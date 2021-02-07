@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import Layout from '../components/Layout';
+import Layout from '../components/layout';
 
 const HabitList = ({ loading, habits }) => {
   if (loading) return <p>Loading...</p>;
