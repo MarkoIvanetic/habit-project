@@ -1,32 +1,43 @@
-import React from "react"
-import { graphql } from "gatsby"
-import Layout from "../components/Layout"
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const IndexPage = ({ data }) => (
-  <Layout>
+import Layout from '../components/Layout';
+
+const HabitList = ({ loading, habits }) => {
+  if (loading) return <p>Loading...</p>;
+
+  return (
     <ul>
-      {data.fauna.allHabits.data.map(product => (
-        <li>
-          {product.title} - {product.points}
-        </li>
-      ))}
+      {habits?.map(({ _id, title }) => {
+        return <div key={_id}>{title}</div>;
+      })}
     </ul>
-  </Layout>
-)
+  );
+};
 
-export const query = graphql`
-  query MyItemQuery {
-    fauna {
-      allHabits {
-        data {
-          title
-          points
-          note
-          metric
-        }
+const IndexPage = (props) => {
+  const [status, setStatus] = useState('loading...');
+  const [habits, setHabits] = useState(null);
+
+  useEffect(() => {
+    if (status !== 'loading...') return;
+    axios('/api/getHabits').then((result) => {
+      if (result.status !== 200) {
+        console.error('Error loading habits');
+        console.error(result);
+        return;
       }
-    }
-  }
-`
+      setHabits(result.data.habits);
+      setStatus('loaded');
+    });
+  }, [status]);
 
-export default IndexPage
+  return (
+    <Layout>
+      <h1>Habits to load here...</h1>
+      <HabitList loading={habits === null} habits={habits} />
+    </Layout>
+  );
+};
+
+export default IndexPage;
