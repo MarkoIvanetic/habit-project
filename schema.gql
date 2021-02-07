@@ -1,0 +1,10 @@
+type Habit {
+  title: String!
+  metric: String!
+  note: String!
+  points: Int!
+}
+
+type Query {
+  allHabits: [Habit!]
+}
