@@ -1,10 +1,12 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "habit-project",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Habit tracker",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Marko Ivanetić <manna.grad@gmail.com>",
   "dependencies": {
+    "axios": "^0.21.1",
+    "dotenv": "^8.2.0",
     "gatsby": "^2.32.3",
     "gatsby-cli": "^2.19.1",
     "gatsby-image": "^2.11.0",
@@ -43,3 +45,4 @@
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   }
 }
+
