@@ -1,43 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from "react"
+import { Link } from "gatsby"
 
-import Layout from '../components/layout';
+import Layout from "../components/layout"
+import Image from "../components/image"
+import SEO from "../components/seo"
 
-const HabitList = ({ loading, habits }) => {
-  if (loading) return <p>Loading...</p>;
+const IndexPage = () => (
+  <Layout>
+    <SEO title="Home" />
+    <h1>Hi people</h1>
+    <p>Welcome to your new Gatsby site.</p>
+    <p>Now go build something great.</p>
+    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
+      <Image />
+    </div>
+    <Link to="/page-2/">Go to page 2</Link> <br />
+    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
+  </Layout>
+)
 
-  return (
-    <ul>
-      {habits?.map(({ _id, title }) => {
-        return <div key={_id}>{title}</div>;
-      })}
-    </ul>
-  );
-};
-
-const IndexPage = (props) => {
-  const [status, setStatus] = useState('loading...');
-  const [habits, setHabits] = useState(null);
-
-  useEffect(() => {
-    if (status !== 'loading...') return;
-    axios('/api/getHabits').then((result) => {
-      if (result.status !== 200) {
-        console.error('Error loading habits');
-        console.error(result);
-        return;
-      }
-      setHabits(result.data.habits);
-      setStatus('loaded');
-    });
-  }, [status]);
-
-  return (
-    <Layout>
-      <h1>Habits to load here...</h1>
-      <HabitList loading={habits === null} habits={habits} />
-    </Layout>
-  );
-};
-
-export default IndexPage;
+export default IndexPage
