@@ -7,6 +7,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
+    "faunadb": "^4.0.3",
     "gatsby": "^2.32.3",
     "gatsby-cli": "^2.19.1",
     "gatsby-image": "^2.11.0",
@@ -22,6 +23,7 @@
     "react-helmet": "^6.1.0"
   },
   "devDependencies": {
+    "eslint-import-resolver-alias": "^1.1.2",
     "prettier": "2.2.1"
   },
   "keywords": [
@@ -45,4 +47,3 @@
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   }
 }
-
