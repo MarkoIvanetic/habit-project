@@ -98,5 +98,6 @@ Looking for more guidance? Full documentation for Gatsby lives [on the website](
 
 <!-- AUTO-GENERATED-CONTENT:END -->
 
+Test
 git config user.name "MarkoIvanetic"
 git config user.email manna.grad@gmail.com
