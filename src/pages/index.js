@@ -6,22 +6,36 @@ import Image from "../components/image"
 import SEO from "../components/seo"
 
 // import { getAllHabits } from "../../api"
-import { getAllHabits, createHabit } from "@api"
+import { getAllHabits, createHabit, deleteHabit } from "@api"
 import HabitCreateForm from "../components/HabitCreateForm.component"
+import { connect, useDispatch } from "react-redux"
 
-const IndexPage = () => {
+const IndexPage = ({ habits }) => {
+  const dispatch = useDispatch()
+
   const [loading, setLoading] = useState(true)
-  const [data, setData] = useState([])
 
   const loadHabits = () => {
     getAllHabits.then(data => {
-      console.log(data)
+      dispatch({ type: "GET_HABITS", payload: data })
       setLoading(false)
-      setData(data)
     })
   }
+
+  const onCreateHabit = async newHabit => {
+    const { data } = await createHabit(newHabit)
+    dispatch({ type: "CREATE_HABIT", payload: data })
+  }
+
+  const onDeleteHabit = async id => {
+    deleteHabit(id)
+      .then(response => {
+        dispatch({ type: "DELETE_HABIT", payload: { id } })
+      })
+      .catch(error => {})
+  }
+
   useEffect(() => {
-    setLoading(true)
     loadHabits()
   }, [])
 
@@ -38,12 +52,13 @@ const IndexPage = () => {
             <h2>Habits</h2>
             {loading
               ? "loading..."
-              : data.map(habit => {
+              : habits.map(habit => {
                   return (
                     <div key={habit.id}>
                       <p>
                         {habit.title} - {habit.points} - {habit.metric} -{" "}
                         {habit.note}
+                        <span onClick={() => onDeleteHabit(habit.id)}>X</span>
                       </p>
                     </div>
                   )
@@ -56,13 +71,7 @@ const IndexPage = () => {
             <button onClick={() => loadHabits()}>Refresh</button>
           </div>
           <div style={{ flex: 1 }}>
-            <HabitCreateForm
-              onCreateHabit={data => {
-                createHabit(data).then(response => {
-                  console.log(response)
-                })
-              }}
-            />
+            <HabitCreateForm onCreateHabit={onCreateHabit} />
           </div>
         </div>
       </Layout>
@@ -70,4 +79,10 @@ const IndexPage = () => {
   )
 }
 
-export default IndexPage
+const mapStateToProps = state => {
+  return {
+    habits: state.habits,
+  }
+}
+
+export default connect(mapStateToProps)(IndexPage)

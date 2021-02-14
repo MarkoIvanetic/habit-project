@@ -1,8 +1,8 @@
 import { client, q } from "../config/db"
 
-const deleteHabit = noteId =>
+const deleteHabit = id =>
   client
-    .query(q.Delete(q.Ref(q.Collection("habit"), noteId)))
+    .query(q.Delete(q.Ref(q.Collection("habit"), id)))
     .then(res => res)
     .catch(err => console.warn(err.message))
 

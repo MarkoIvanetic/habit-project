@@ -13,6 +13,16 @@ const reducer = (state = initialState, action) => {
         habits: action.payload,
         loaded: { ...state.loaded, habits: true },
       }
+    case "CREATE_HABIT":
+      return {
+        ...state,
+        habits: [...state.habits, action.payload],
+      }
+    case "DELETE_HABIT":
+      return {
+        ...state,
+        habits: state.habits.filter(habit => habit.id !== action.payload.id),
+      }
     default:
       return state
   }

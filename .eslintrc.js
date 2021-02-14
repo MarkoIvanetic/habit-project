@@ -32,6 +32,7 @@ module.exports = {
       alias: [
         ["@components", "src/components"],
         ["@hooks", "src/hooks"],
+        ["@actions", "actions"],
         ["@config", "config"],
         ["@api", "api"],
         ["@static", "static"],
