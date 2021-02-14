@@ -40,7 +40,7 @@ const IndexPage = () => {
               ? "loading..."
               : data.map(habit => {
                   return (
-                    <div>
+                    <div key={habit.id}>
                       <p>
                         {habit.title} - {habit.points} - {habit.metric} -{" "}
                         {habit.note}
