@@ -7,7 +7,6 @@ import SEO from "../components/seo"
 
 // import { getAllHabits } from "../../api"
 import { getAllHabits, createHabit, deleteHabit } from "@api"
-import HabitEditor from "../components/HabitEditor.component"
 import { connect, useDispatch } from "react-redux"
 
 const IndexPage = ({ habits }) => {
@@ -70,9 +69,7 @@ const IndexPage = ({ habits }) => {
             <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
             <button onClick={() => loadHabits()}>Refresh</button>
           </div>
-          <div style={{ flex: 1 }}>
-            <HabitEditor />
-          </div>
+          <div style={{ flex: 1 }}>{/* <HabitEditor /> */}</div>
         </div>
       </Layout>
     </>

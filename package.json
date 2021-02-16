@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Marko Ivanetić <manna.grad@gmail.com>",
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "faunadb": "^4.0.3",
@@ -25,7 +26,10 @@
     "redux": "^4.0.5"
   },
   "devDependencies": {
+    "eslint": "^7.20.0",
+    "eslint-config-google": "^0.14.0",
     "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-react": "^7.22.0",
     "prettier": "2.2.1"
   },
   "keywords": [
