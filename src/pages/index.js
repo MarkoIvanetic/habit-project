@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "gatsby"
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import { Layout, SEO, Image } from "@components"
 
-// import { getAllHabits } from "../../api"
 import { getAllHabits, createHabit, deleteHabit } from "@api"
 import { connect, useDispatch } from "react-redux"
 
@@ -65,7 +62,7 @@ const IndexPage = ({ habits }) => {
             <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
               <Image />
             </div>
-            <Link to="/page-2/">Go to page 2</Link> <br />
+            <Link to="/habit-editor/">Go to page 2</Link> <br />
             <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
             <button onClick={() => loadHabits()}>Refresh</button>
           </div>
