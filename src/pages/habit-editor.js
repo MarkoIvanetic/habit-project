@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   makeStyles,
+  styled,
   Grid,
   FormControlLabel,
   Checkbox,
@@ -22,7 +23,8 @@ import {
   Paper,
 } from '@material-ui/core';
 
-import AddCircle from '@material-ui/icons/AddCircle';
+import AddIcon from '@material-ui/icons/AddCircle';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import { connect, useDispatch } from 'react-redux';
 import { getAllHabits, createHabit, deleteHabit } from '@api';
@@ -42,12 +44,12 @@ const useStyles = makeStyles({
 });
 
 const HabitEditor = ({ habits }) => {
-  const [open, setOpen] = useState(false);
   const [data, setData] = useState(habitFormInitialState);
   const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
 
+  // ************************************************************
   const loadHabits = () => {
     getAllHabits.then((data) => {
       dispatch({ type: 'GET_HABITS', payload: data });
@@ -58,19 +60,12 @@ const HabitEditor = ({ habits }) => {
   useEffect(() => {
     loadHabits();
   }, []);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    setData(habitFormInitialState);
-  };
+  // ************************************************************
 
   const onCreateHabit = async (newHabit) => {
-    const { data } = await createHabit(newHabit);
+    const data = await createHabit(newHabit);
     dispatch({ type: 'CREATE_HABIT', payload: data });
+    setData(habitFormInitialState);
   };
 
   const onDeleteHabit = async (id) => {
@@ -80,8 +75,7 @@ const HabitEditor = ({ habits }) => {
       })
       .catch((error) => {});
   };
-
-  console.log(habits);
+  // ************************************************************
 
   const classes = useStyles();
   return (
@@ -93,64 +87,81 @@ const HabitEditor = ({ habits }) => {
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Dessert (100g serving)</TableCell>
-              <TableCell align="right">Calories</TableCell>
-              <TableCell align="right">Fat&nbsp;(g)</TableCell>
+              <TableCell>Title</TableCell>
+              <TableCell>Metric</TableCell>
+              <TableCell>Points</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {habits.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                  {row.title || 'Nan'}
+            {habits.map((habit) => (
+              <TableRow key={habit.id}>
+                <TableCell component="th" scope="habit">
+                  {habit.title}
                 </TableCell>
-                <TableCell align="right">{row.metric}</TableCell>
-                <TableCell align="right">{row.points}</TableCell>
+                <TableCell>{habit.metric}</TableCell>
+                <TableCell>{habit.points}</TableCell>
+                <TableCell>
+                  <IconButton
+                    color="secondary"
+                    aria-label="remove"
+                    component="span"
+                    onClick={() => onDeleteHabit(habit.id)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
+            <TableRow>
+              <TableCell component="th" scope="row">
+                <TextField
+                  required
+                  label="Title"
+                  fullWidth
+                  onChange={(e) => {
+                    setData({ ...data, title: e.target.value });
+                  }}
+                  value={data.title}
+                />
+              </TableCell>
+              <TableCell align="right">
+                <TextField
+                  required
+                  label="Metric"
+                  fullWidth
+                  onChange={(e) => {
+                    setData({ ...data, metric: e.target.value });
+                  }}
+                  value={data.metric}
+                />
+              </TableCell>
+              <TableCell align="right">
+                <TextField
+                  type="number"
+                  required
+                  label="Points"
+                  fullWidth
+                  onChange={(e) => {
+                    setData({ ...data, points: e.target.value });
+                  }}
+                  type="number"
+                  value={data.points}
+                />
+              </TableCell>
+              <TableCell>
+                <IconButton
+                  color="primary"
+                  aria-label="create new"
+                  component="span"
+                  onClick={() => onCreateHabit(data)}
+                >
+                  <AddIcon />
+                </IconButton>
+              </TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
-      <Grid container spacing={3} alignItems="center">
-        <Grid item xs={12} sm={4}>
-          <TextField
-            required
-            label="Title"
-            fullWidth
-            onChange={(e) => {
-              setData({ ...data, title: e.target.value });
-            }}
-            value={data.title}
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <TextField
-            required
-            label="Metric"
-            fullWidth
-            onChange={(e) => {
-              setData({ ...data, metric: e.target.value });
-            }}
-            value={data.metric}
-          />
-        </Grid>
-        <Grid item xs={12} sm={3}>
-          <TextField
-            type="number"
-            required
-            label="Points"
-            fullWidth
-            onChange={(e) => {
-              setData({ ...data, points: e.target.value });
-            }}
-            type="number"
-            value={data.points}
-          />
-        </Grid>
-        <IconButton color="primary" aria-label="create new" component="span">
-          <AddCircle />
-        </IconButton>
-      </Grid>
     </Layout>
   );
 };
