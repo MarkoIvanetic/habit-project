@@ -5,6 +5,8 @@
   "version": "0.1.0",
   "author": "Marko Ivanetić <manna.grad@gmail.com>",
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "faunadb": "^4.0.3",
@@ -20,15 +22,39 @@
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "react-redux": "^7.2.2",
+    "redux": "^4.0.5"
   },
   "devDependencies": {
+    "eslint": "^7.20.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^7.2.0",
     "eslint-import-resolver-alias": "^1.1.2",
-    "prettier": "2.2.1"
+    "eslint-plugin-compat": "^3.9.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "husky": "^5.0.9",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json}": [
+      "npm run format",
+      "npm run lint:fix"
+    ]
   },
   "keywords": [
     "gatsby"
   ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "license": "0BSD",
   "scripts": {
     "build": "gatsby build",
@@ -37,7 +63,9 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "lint": "eslint \"src/**/*.{js,jsx,json}\"",
+    "lint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",

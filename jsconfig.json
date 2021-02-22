@@ -6,6 +6,7 @@
       "@hooks": ["src/hooks"],
       "@config": ["config"],
       "@api": ["api"],
+      "@actions": ["actions"],
       "@static": ["static"]
     }
   }

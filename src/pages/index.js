@@ -1,73 +1,91 @@
-import React, { useEffect, useState } from "react"
-import { Link } from "gatsby"
+import React, { useEffect, useState } from 'react';
+import { Link } from 'gatsby';
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import { Layout, SEO, Image } from '@components';
 
-// import { getAllHabits } from "../../api"
-import { getAllHabits, createHabit } from "@api"
-import HabitCreateForm from "../components/HabitCreateForm.component"
+import {
+  getAllHabits,
+  createHabit,
+  deleteHabit,
+  getAllCalendar,
+  createCalendarEntry,
+} from '@api';
+import { connect, useDispatch } from 'react-redux';
 
-const IndexPage = () => {
-  const [loading, setLoading] = useState(true)
-  const [data, setData] = useState([])
+const IndexPage = ({ habits }) => {
+  const dispatch = useDispatch();
+
+  window.getAllCalendar = getAllCalendar;
+  window.createCalendarEntry = createCalendarEntry;
+
+  const [loading, setLoading] = useState(true);
 
   const loadHabits = () => {
-    getAllHabits.then(data => {
-      console.log(data)
-      setLoading(false)
-      setData(data)
-    })
-  }
+    getAllHabits.then((data) => {
+      dispatch({ type: 'GET_HABITS', payload: data });
+      setLoading(false);
+    });
+  };
+
+  const onCreateHabit = async (newHabit) => {
+    const { data } = await createHabit(newHabit);
+    dispatch({ type: 'CREATE_HABIT', payload: data });
+  };
+
+  const onDeleteHabit = async (id) => {
+    deleteHabit(id)
+      .then((response) => {
+        dispatch({ type: 'DELETE_HABIT', payload: { id } });
+      })
+      .catch((error) => {});
+  };
+
   useEffect(() => {
-    setLoading(true)
-    loadHabits()
-  }, [])
+    loadHabits();
+  }, []);
 
   return (
     <>
       <Layout>
         <SEO title="Home" />
 
-        <div style={{ display: "flex" }}>
+        <div style={{ display: 'flex' }}>
           <div style={{ flex: 1 }}>
             <h1>Hi people</h1>
             <p>Welcome to your new Gatsby site.</p>
             <p>Now go build something great.</p>
             <h2>Habits</h2>
             {loading
-              ? "loading..."
-              : data.map(habit => {
+              ? 'loading...'
+              : habits.map((habit) => {
                   return (
-                    <div>
+                    <div key={habit.id}>
                       <p>
-                        {habit.title} - {habit.points} - {habit.metric} -{" "}
+                        {habit.title} - {habit.points} - {habit.metric} -{' '}
                         {habit.note}
+                        <span onClick={() => onDeleteHabit(habit.id)}>X</span>
                       </p>
                     </div>
-                  )
+                  );
                 })}
             <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
               <Image />
             </div>
-            <Link to="/page-2/">Go to page 2</Link> <br />
+            <Link to="/habit-editor/">Go to page 2</Link> <br />
             <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
             <button onClick={() => loadHabits()}>Refresh</button>
           </div>
-          <div style={{ flex: 1 }}>
-            <HabitCreateForm
-              onCreateHabit={data => {
-                createHabit(data).then(response => {
-                  console.log(response)
-                })
-              }}
-            />
-          </div>
+          <div style={{ flex: 1 }}>{/* <HabitEditor /> */}</div>
         </div>
       </Layout>
     </>
-  )
-}
+  );
+};
 
-export default IndexPage
+const mapStateToProps = (state) => {
+  return {
+    habits: state.habits,
+  };
+};
+
+export default connect(mapStateToProps)(IndexPage);
