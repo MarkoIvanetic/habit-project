@@ -40,10 +40,16 @@ const habitFormInitialState = {
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
+    '& thead': {
+      background: '#3f51b5',
+      '& th': {
+        color: 'white',
+      },
+    },
   },
 });
 
-const HabitEditor = ({ habits }) => {
+const HabitEditor = ({ habits, location }) => {
   const [data, setData] = useState(habitFormInitialState);
   const [loading, setLoading] = useState(true);
 
@@ -78,8 +84,9 @@ const HabitEditor = ({ habits }) => {
   // ************************************************************
 
   const classes = useStyles();
+
   return (
-    <Layout>
+    <Layout location={location}>
       <Typography variant="h5" gutterBottom>
         Habits
       </Typography>
@@ -90,6 +97,7 @@ const HabitEditor = ({ habits }) => {
               <TableCell>Title</TableCell>
               <TableCell>Metric</TableCell>
               <TableCell>Points</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
