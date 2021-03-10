@@ -1,15 +1,17 @@
 type Habit {
-  id: ID!
-  title: String
-  metric: String
-  note: String
-  points: Int
+    title: String
+    metric: String
+    note: String
+    points: Int
+    entry: Entry
 }
+
 type Entry {
-  date: Date!
-  tracker: [Habit!]
+    date: Date!
+    tracker: [Habit!]
 }
 
 type Query {
-  allHabits: [Habit!]
+    allHabits: [Habit!]
+    allEntries: [Habit!]
 }
