@@ -1,13 +1,13 @@
 import { client, q } from '@config/db'
 
-const editHabit = (habitId, newData) =>
+const editEntry = (entryId, newData) =>
     client
         .query(
-            q.Update(q.Ref(q.Collection('Habit'), habitId), {
+            q.Update(q.Ref(q.Collection('Entry'), entryId), {
                 data: newData
             })
         )
         .then(ret => console.log(ret))
         .catch(err => console.warn(err))
 
-export default editHabit
+export default editEntry

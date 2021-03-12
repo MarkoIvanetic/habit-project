@@ -1,4 +1,4 @@
-import { client, q } from '../config/db'
+import { client, q } from '@config/db'
 
 const transform = response => {
     return {

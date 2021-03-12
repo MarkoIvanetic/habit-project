@@ -8,7 +8,7 @@ type Habit {
 type entryHabitTuple {
     habit: String
     value: Int
-    entry: Entry
+    entry: Entry!
 }
 
 type Entry {
