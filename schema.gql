@@ -3,15 +3,20 @@ type Habit {
     metric: String
     note: String
     points: Int
+}
+
+type entryHabitTuple {
+    habit: String
+    value: Int
     entry: Entry
 }
 
 type Entry {
     date: Date!
-    tracker: [Habit!]
+    tracker: [entryHabitTuple]
 }
 
 type Query {
     allHabits: [Habit!]
-    allEntries: [Habit!]
+    allEntries: [Entry!]
 }
