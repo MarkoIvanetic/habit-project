@@ -8,7 +8,7 @@ const transform = response => {
 }
 
 const getAllHabits = client
-    .query(q.Paginate(q.Match(q.Ref('indexes/all_habits'))))
+    .query(q.Paginate(q.Match(q.Ref('indexes/allHabits'))))
     .then(response => {
         const habitsRefs = response.data
         const getAllProductDataQuery = habitsRefs.map(ref => {
