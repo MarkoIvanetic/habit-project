@@ -1,8 +1,8 @@
-import { createStore as reduxCreateStore } from "redux"
-import reducer from "../src/reducers/reducer"
+import { createStore as reduxCreateStore } from 'redux'
+import reducer from '../src/reducers/reducer'
 
 const initialState = {
-  habits: [],
+    habits: []
 }
 
 const createStore = () => reduxCreateStore(reducer, initialState)
