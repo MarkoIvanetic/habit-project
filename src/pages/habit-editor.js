@@ -56,17 +56,6 @@ const HabitEditor = ({ habits = [], location }) => {
     const dispatch = useDispatch()
 
     // ************************************************************
-    const loadHabits = () => {
-        getAllHabits.then(data => {
-            dispatch({ type: 'GET_HABITS', payload: data })
-            setLoading(false)
-        })
-    }
-
-    useEffect(() => {
-        loadHabits()
-    }, [])
-    // ************************************************************
 
     const onCreateHabit = async newHabit => {
         const data = await createHabit(newHabit)

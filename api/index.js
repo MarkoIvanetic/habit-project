@@ -3,6 +3,6 @@ import editHabit from './habit/editHabit'
 import createHabit from './habit/createHabit'
 import deleteHabit from './habit/deleteHabit'
 
-import { createEntry, createEntries } from './entry/createEntry'
+import { createWeeklyEntry, createWeeklyEntries } from './entry/createEntry'
 
-export { getAllHabits, editHabit, deleteHabit, createHabit, createEntry }
+export { getAllHabits, editHabit, deleteHabit, createHabit, createWeeklyEntry, createWeeklyEntries }

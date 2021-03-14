@@ -7,10 +7,10 @@ const transform = response => {
     }
 }
 
-const createEntry = data => {
+const createWeeklyEntry = data => {
     return client
         .query(
-            q.Create(q.Collection('Entry'), {
+            q.Create(q.Collection('WeeklyEntry'), {
                 data
             })
         )
@@ -18,14 +18,14 @@ const createEntry = data => {
         .catch(err => console.warn(err))
 }
 
-const createEntries = data => {
+const createWeeklyEntries = data => {
     return client
         .query(
             q.Map(
                 data,
                 q.Lambda(
                     entry,
-                    q.Create(q.Collection('Entry'), {
+                    q.Create(q.Collection('WeeklyEntry'), {
                         data: entry
                     })
                 )
@@ -35,4 +35,4 @@ const createEntries = data => {
         .catch(err => console.warn(err))
 }
 
-export { createEntry, createEntries }
+export { createWeeklyEntry, createWeeklyEntries }

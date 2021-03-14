@@ -8,15 +8,16 @@ type Habit {
 type entryHabitTuple {
     habit: String
     value: Int
-    entry: Entry!
+    date: Date!
+    entry: WeeklyEntry!
 }
 
-type Entry {
-    date: Date!
+type WeeklyEntry {
+    startDate: Date!
     tracker: [entryHabitTuple]
 }
 
 type Query {
     allHabits: [Habit!]
-    allEntries: [Entry!]
+    allWeeklyEntries: [WeeklyEntry!]
 }
