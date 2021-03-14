@@ -1,0 +1,23 @@
+type Habit {
+    title: String
+    metric: String
+    note: String
+    points: Int
+}
+
+type entryHabitTuple {
+    habit: String
+    value: Int
+    date: Date!
+    entry: WeeklyEntry!
+}
+
+type WeeklyEntry {
+    startDate: Date!
+    tracker: [entryHabitTuple]
+}
+
+type Query {
+    allHabits: [Habit!]
+    allWeeklyEntries: [WeeklyEntry!]
+}

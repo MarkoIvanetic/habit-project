@@ -5,14 +5,26 @@
  * See: https://www.gatsbyjs.com/docs/use-static-query/
  */
 
-import React from "react"
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useStaticQuery, graphql, Link } from 'gatsby';
 
-import Header from "./header"
-import "./layout.css"
+import Header from './header';
+import './layout.css';
+import { MenuItem, MenuList } from '@material-ui/core';
 
-const Layout = ({ children }) => {
+const ROUTES = [
+  {
+    name: 'Home',
+    link: '/',
+  },
+  {
+    name: 'Habits',
+    link: '/habit-editor',
+  },
+];
+
+const Layout = ({ location, children }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -21,7 +33,9 @@ const Layout = ({ children }) => {
         }
       }
     }
-  `)
+  `);
+
+  console.log(location);
 
   return (
     <>
@@ -33,7 +47,24 @@ const Layout = ({ children }) => {
           padding: `0 1.0875rem 1.45rem`,
         }}
       >
-        <main>{children}</main>
+        <main>
+          <MenuList style={{ display: 'flex' }}>
+            {ROUTES.map((route) => {
+              return (
+                <MenuItem
+                  key={route.name}
+                  component={Link}
+                  to={route.link}
+                  selected={location.pathname === route.link}
+                >
+                  {route.name}
+                </MenuItem>
+              );
+            })}
+          </MenuList>
+
+          {children}
+        </main>
         <footer
           style={{
             marginTop: `2rem`,
@@ -45,11 +76,16 @@ const Layout = ({ children }) => {
         </footer>
       </div>
     </>
-  )
-}
+  );
+};
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-}
+  location: PropTypes.object,
+};
 
-export default Layout
+Layout.defaultProps = {
+  location: { pathname: '/' },
+};
+
+export default Layout;

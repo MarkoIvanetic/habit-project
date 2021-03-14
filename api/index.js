@@ -1,15 +1,8 @@
-import getAllHabits from './getAllHabits';
-import editHabit from './editHabit';
-import createHabit from './createHabit';
-import deleteHabit from './deleteHabit';
-import createCalendarEntry from './createCalendar';
-import getAllCalendar from './getAllCalendar';
+import getAllHabits from './habit/getAllHabits'
+import editHabit from './habit/editHabit'
+import createHabit from './habit/createHabit'
+import deleteHabit from './habit/deleteHabit'
 
-export {
-  getAllHabits,
-  editHabit,
-  deleteHabit,
-  createHabit,
-  createCalendarEntry,
-  getAllCalendar,
-};
+import { createWeeklyEntry, createWeeklyEntries } from './entry/createEntry'
+
+export { getAllHabits, editHabit, deleteHabit, createHabit, createWeeklyEntry, createWeeklyEntries }
