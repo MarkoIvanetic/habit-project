@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'gatsby'
 
-import { Layout, SEO, Image } from '@components'
+import { Calendar, Layout, SEO, Image } from '@components'
 
 import { getAllHabits, createHabit, deleteHabit, getAllCalendar, createCalendarEntry } from '@api'
 import { connect, useDispatch } from 'react-redux'
@@ -17,6 +17,7 @@ const IndexPage = ({ habits }) => {
                 <SEO title="Home" />
 
                 <div style={{ display: 'flex' }}></div>
+                <Calendar></Calendar>
             </Layout>
         </>
     )
