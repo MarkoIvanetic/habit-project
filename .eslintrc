@@ -1,10 +1,219 @@
 {
     "parser": "babel-eslint",
-    "extends": ["plugin:prettier/recommended"],
-
-    "plugins": ["prettier"],
-
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+    },
+    "globals": {
+        "sessionStorage": true,
+        "localStorage": false,
+        "google": true,
+        "gapi": true,
+        "dataLayer": true,
+        "window": true,
+        "document": true,
+        "fetch": false,
+        "it": true,
+        "expect": true,
+        "cExpect": true,
+        "assert": true,
+        "describe": true,
+        "test": true
+    },
+    "extends": ["airbnb", "prettier", "prettier/react", "plugin:react/recommended", "../../../.eslintrc.json"],
     "rules": {
-        "prettier/prettier": "error"
-    }
+        "no-shadow": [
+            "error",
+            {
+                "allow": ["props"]
+            }
+        ],
+        "import/extensions": [
+            "error",
+            "never",
+            {
+                "svg": "always",
+                "css": "always",
+                "mdx": "always",
+                "json": "always"
+            }
+        ],
+        "import/no-cycle": [
+            2,
+            {
+                "maxDepth": 1
+            }
+        ],
+        "import/no-unresolved": "off",
+        "import/no-commonjs": [
+            2,
+            {
+                "allowRequire": true,
+                "allowPrimitiveModules": true
+            }
+        ],
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "peerDependencies": true
+            }
+        ],
+        "jsx-a11y/anchor-is-valid": [
+            "error",
+            {
+                "components": ["Link"],
+                "specialLink": ["hrefLeft", "hrefRight"],
+                "aspects": ["invalidHref", "preferButton"]
+            }
+        ],
+        "react/jsx-props-no-spreading": "off",
+        "react/state-in-constructor": "off",
+        "no-const-assign": "warn",
+        "no-this-before-super": "warn",
+        "no-undef": "warn",
+        "no-unreachable": "warn",
+        "no-underscore-dangle": [
+            "error",
+            {
+                "allow": [
+                    "__REDUX_DEVTOOLS_EXTENSION_COMPOSE__",
+                    "_allPostsMeta",
+                    "__constructor__",
+                    "_publishing",
+                    "_taxonomiesLastData"
+                ]
+            }
+        ],
+        "react/prop-types": [
+            "error",
+            {
+                "ignore": ["children", "style", "forwardRef", "ref", "classes", "className"]
+            }
+        ],
+        "no-unused-vars": [
+            "error",
+            {
+                "vars": "local",
+                "args": "none",
+                "ignoreRestSiblings": true,
+                "varsIgnorePattern": "^_"
+            }
+        ],
+        "no-multiple-empty-lines": [
+            "error",
+            {
+                "max": 1
+            }
+        ],
+        "constructor-super": "warn",
+        "valid-typeof": "warn",
+        "comma-spacing": "warn",
+        "computed-property-spacing": "warn",
+        "class-methods-use-this": "off",
+        "max-len": [
+            1,
+            120,
+            2,
+            {
+                "ignoreComments": true,
+                "ignoreUrls": true
+            }
+        ],
+        "quote-props": [1, "as-needed"],
+        "no-param-reassign": [
+            "error",
+            {
+                "props": false
+            }
+        ],
+        "linebreak-style": ["error", "unix"],
+        "no-trailing-spaces": [
+            "warn",
+            {
+                "skipBlankLines": true
+            }
+        ],
+        "prefer-destructuring": [
+            "error",
+            {
+                "object": true,
+                "array": false
+            }
+        ],
+        "prettier/prettier": [
+            "warn",
+            {
+                "printWidth": 120,
+                "singleQuote": true,
+                "tabWidth": 4,
+                "semi": false,
+                "trailingComma": "none",
+                "bracketSpacing": true,
+                "jsxBracketSameLine": true,
+                "arrowParens": "avoid"
+            }
+        ],
+        "react/display-name": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-filename-extension": "off",
+        "react/jsx-indent": ["error", 4],
+        "react/jsx-indent-props": ["error", 4],
+        "react/jsx-closing-bracket-location": [
+            1,
+            {
+                "selfClosing": "line-aligned",
+                "nonEmpty": "after-props"
+            }
+        ],
+        "import/prefer-default-export": "off",
+        "curly": ["error", "all"],
+        "react-hooks/rules-of-hooks": "error",
+        "react/require-default-props": "off",
+        "camelcase": [
+            "error",
+            {
+                "properties": "always",
+                "ignoreDestructuring": false,
+                "allow": [
+                    "extended_attributes",
+                    "smart_count",
+                    "article_id",
+                    "page_id",
+                    "custom_link",
+                    "display_name",
+                    "created_at",
+                    "updated_at",
+                    "public_id",
+                    "related_articles",
+                    "points_of_interest",
+                    "system_points_of_interest",
+                    "available_locales",
+                    "navigation_type",
+                    "ck_body",
+                    "promoted_at",
+                    "access_token",
+                    "refresh_token",
+                    "sitemap_node",
+                    "published_at",
+                    "archived_at",
+                    "content_taxon_id"
+                ]
+            }
+        ],
+        "no-warning-comments": [
+            "warn",
+            {
+                "terms": ["@TODOCOMMIT"],
+                "location": "anywhere"
+            }
+        ]
+    },
+    "plugins": ["module-resolver", "react", "prettier", "import", "react-hooks"],
+    "ignorePatterns": ["!**/*"]
 }
