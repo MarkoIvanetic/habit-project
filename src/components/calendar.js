@@ -42,11 +42,11 @@ const Calendar = ({ habits }) => {
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Habit</TableCell>
-                            <TableCell>Metric</TableCell>
-                            <TableCell>Rating</TableCell>
+                            <TableCell align="right">Habit</TableCell>
+                            <TableCell align="right">Metric</TableCell>
+                            <TableCell align="right">Rating</TableCell>
                             {weekCalendar.map(day => (
-                                <TableCell>{day.date}</TableCell>
+                                <TableCell align="right">{day.date}</TableCell>
                             ))}
                         </TableRow>
                     </TableHead>
