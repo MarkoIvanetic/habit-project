@@ -1,16 +1,19 @@
+/* eslint-disable no-plusplus */
 import React, { useEffect, useMemo } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes, { array, shape } from 'prop-types'
 import { Link } from 'gatsby'
 import { connect } from 'react-redux'
 import { getAllHabits } from '@api'
 import moment from 'moment'
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
+import { makeStyles, styled } from '@material-ui/core/styles'
+import CalendarCell from './calendarCell'
 
 function getPreviousMonday() {
     const date = new Date()
     const day = date.getDay()
     const prevMonday = new Date()
-    if (date.getDay() == 0) {
+    if (date.getDay() === 0) {
         prevMonday.setDate(date.getDate() - 7)
     } else {
         prevMonday.setDate(date.getDate() - (day - 1))
@@ -25,7 +28,9 @@ const generateWeekCalendar = () => {
 
     for (let i = 0; i < 7; i++) {
         calendar.push({
-            date: moment(monday).add(i, 'days').format('dddd'),
+            index: i,
+            day: moment(monday).add(i, 'days'),
+            dayOfWeek: moment(monday).add(i, 'days').format('dd'),
             entries: []
         })
     }
@@ -33,31 +38,53 @@ const generateWeekCalendar = () => {
     return calendar
 }
 
+const useStyles = makeStyles({
+    table: {
+        minWidth: 650
+    }
+})
+
 const weekCalendar = generateWeekCalendar()
 
 const Calendar = ({ habits }) => {
+    const classes = useStyles()
+
     return (
         <div>
             <TableContainer component={Paper}>
-                <Table aria-label="simple table">
+                <Table className={classes.table} aria-label="habbit table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="right">Habit</TableCell>
+                            <TableCell />
+                            <TableCell />
+                            <TableCell />
+                            {weekCalendar.map(day => (
+                                <TableCell align="right" key={day.dayOfWeek}>
+                                    {day.day.format('MM/DD')}
+                                </TableCell>
+                            ))}
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Habit</TableCell>
                             <TableCell align="right">Metric</TableCell>
                             <TableCell align="right">Rating</TableCell>
                             {weekCalendar.map(day => (
-                                <TableCell align="right">{day.date}</TableCell>
+                                <TableCell align="right" key={day.dayOfWeek}>
+                                    {day.dayOfWeek}
+                                </TableCell>
                             ))}
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {habits.map(row => (
                             <TableRow key={row.id}>
-                                <TableCell align="right">{row.title}</TableCell>
+                                <TableCell component="th" scope="row">
+                                    {row.title}
+                                </TableCell>
                                 <TableCell align="right">{row.metric}</TableCell>
                                 <TableCell align="right">{row.points}</TableCell>
                                 {weekCalendar.map(day => (
-                                    <TableCell align="right">0</TableCell>
+                                    <CalendarCell key={day.index} data={row} />
                                 ))}
                             </TableRow>
                         ))}
@@ -68,7 +95,7 @@ const Calendar = ({ habits }) => {
     )
 }
 
-Calendar.propTypes = {}
+Calendar.propTypes = { habits: shape([]) }
 
 Calendar.defaultProps = {
     habits: []

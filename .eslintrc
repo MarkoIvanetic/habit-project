@@ -93,7 +93,7 @@
         "react/prop-types": [
             "error",
             {
-                "ignore": ["children", "style", "forwardRef", "ref", "classes", "className"]
+                "ignore": ["children", "style", "forwardRef", "ref", "classes", "className", "map"]
             }
         ],
         "no-unused-vars": [
@@ -132,7 +132,6 @@
                 "props": false
             }
         ],
-        "linebreak-style": ["error", "unix"],
         "no-trailing-spaces": [
             "warn",
             {
@@ -173,6 +172,7 @@
         ],
         "import/prefer-default-export": "off",
         "curly": ["error", "all"],
+        "no-plusplusgins": "off",
         "react-hooks/rules-of-hooks": "error",
         "react/require-default-props": "off",
         "camelcase": [
@@ -214,6 +214,5 @@
             }
         ]
     },
-    "plugins": ["module-resolver", "react", "prettier", "import", "react-hooks"],
     "ignorePatterns": ["!**/*"]
 }

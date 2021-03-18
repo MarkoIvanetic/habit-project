@@ -33,7 +33,7 @@ import { Layout } from '@components'
 const habitFormInitialState = {
     title: '',
     metric: '',
-    points: '',
+    points: 0,
     note: ''
 }
 
@@ -86,7 +86,7 @@ const HabitEditor = ({ habits = [], location }) => {
                             <TableCell>Title</TableCell>
                             <TableCell>Metric</TableCell>
                             <TableCell>Points</TableCell>
-                            <TableCell></TableCell>
+                            <TableCell />
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -138,7 +138,7 @@ const HabitEditor = ({ habits = [], location }) => {
                                     label="Points"
                                     fullWidth
                                     onChange={e => {
-                                        setData({ ...data, points: e.target.value })
+                                        setData({ ...data, points: +e.target.value })
                                     }}
                                     type="number"
                                     value={data.points}
