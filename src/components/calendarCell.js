@@ -8,6 +8,7 @@ import { makeStyles, styled } from '@material-ui/core/styles'
 
 const TableCell = styled(RaTableCell)(
     ({ theme }) => ({
+        padding: 0,
         '&:hover': {
             background: theme.palette.grey[200],
             cursor: 'pointer'
@@ -34,7 +35,9 @@ const CalendarCell = ({ habits, data }) => {
     return (
         <TableCell align="right">
             <div style={{ position: 'relative' }}>
-                <Typography onClick={handleClick}>{score}</Typography>
+                <Typography style={{ padding: '8px' }} onClick={handleClick}>
+                    {score}
+                </Typography>
                 <Popover
                     id={id}
                     open={open}
