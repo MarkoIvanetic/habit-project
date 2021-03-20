@@ -1,5 +1,6 @@
-import Layout from "./layout"
-import Image from "./image"
-import SEO from "./seo"
+import Layout from './layout'
+import Image from './image'
+import SEO from './seo'
+import Calendar from './calendar'
 
-export { Layout, Image, SEO }
+export { Calendar, Layout, Image, SEO }

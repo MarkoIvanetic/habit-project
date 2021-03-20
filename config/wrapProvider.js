@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
-import createStore from './createStore'
 import { getAllHabits } from '@api'
 import { connect, useDispatch, Provider } from 'react-redux'
+import createStore from './createStore'
 
 const App = ({ children }) => {
     const [loading, setLoading] = useState(true)
