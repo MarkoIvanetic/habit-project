@@ -1,15 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'gatsby'
+import React from 'react'
 
-import { Calendar, Layout, SEO, Image } from '@components'
+import { Calendar, Layout, SEO } from '@components'
 
-import { getAllHabits, createHabit, deleteHabit, getAllCalendar, createCalendarEntry } from '@api'
-import { connect, useDispatch } from 'react-redux'
-
-const IndexPage = ({ habits }) => {
-    const dispatch = useDispatch()
-
-    const [loading, setLoading] = useState(true)
+const IndexPage = () => {
+    // const [loading, setLoading] = useState(true)
 
     return (
         <>
@@ -23,10 +17,4 @@ const IndexPage = ({ habits }) => {
     )
 }
 
-const mapStateToProps = state => {
-    return {
-        habits: state.habits
-    }
-}
-
-export default connect(mapStateToProps)(IndexPage)
+export default IndexPage

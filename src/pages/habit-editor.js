@@ -53,22 +53,22 @@ const HabitEditor = ({ habits = [], location }) => {
     const [data, setData] = useState(habitFormInitialState)
     const [loading, setLoading] = useState(true)
 
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     // ************************************************************
 
     const onCreateHabit = async newHabit => {
-        const data = await createHabit(newHabit)
-        dispatch({ type: 'CREATE_HABIT', payload: data })
-        setData(habitFormInitialState)
+        // const data = await createHabit(newHabit)
+        // dispatch({ type: 'CREATE_HABIT', payload: data })
+        // setData(habitFormInitialState)
     }
 
     const onDeleteHabit = async id => {
-        deleteHabit(id)
-            .then(response => {
-                dispatch({ type: 'DELETE_HABIT', payload: { id } })
-            })
-            .catch(error => {})
+        // deleteHabit(id)
+        //     .then(response => {
+        //         dispatch({ type: 'DELETE_HABIT', payload: { id } })
+        //     })
+        //     .catch(error => {})
     }
     // ************************************************************
 
@@ -140,7 +140,6 @@ const HabitEditor = ({ habits = [], location }) => {
                                     onChange={e => {
                                         setData({ ...data, points: +e.target.value })
                                     }}
-                                    type="number"
                                     value={data.points}
                                 />
                             </TableCell>
@@ -161,10 +160,4 @@ const HabitEditor = ({ habits = [], location }) => {
     )
 }
 
-const mapStateToProps = state => {
-    return {
-        habits: state.habits
-    }
-}
-
-export default connect(mapStateToProps)(HabitEditor)
+export default HabitEditor

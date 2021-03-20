@@ -1,20 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
-import { getAllHabits } from '@api'
-import { useQuery, QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query-devtools'
-
-const fetchHabits = async () => {
-    const res = await getAllHabits()
-    return res
-}
+import { useGetHabits } from '@hooks'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 const queryClient = new QueryClient()
 
 const App = ({ children }) => {
-    const { data, status } = useQuery('habits', fetchHabits)
-    console.log(status)
-    console.log(data)
+    const { status, data, error, isFetching } = useGetHabits()
     return children
 }
 
@@ -22,10 +15,8 @@ const App = ({ children }) => {
 export default ({ element }) => {
     return (
         <QueryClientProvider client={queryClient}>
-            <App>
-                {element}
-                <ReactQueryDevtools initialIsOpen={false} />
-            </App>
+            <App>{element}</App>
+            <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
     )
 }

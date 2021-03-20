@@ -1,8 +1,7 @@
 /* eslint-disable no-plusplus */
 import React, { useEffect, useMemo } from 'react'
-import PropTypes, { array, shape } from 'prop-types'
+import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
-import { connect } from 'react-redux'
 import moment from 'moment'
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
 import { makeStyles, styled } from '@material-ui/core/styles'
@@ -94,16 +93,10 @@ const Calendar = ({ habits }) => {
     )
 }
 
-Calendar.propTypes = { habits: shape([]) }
+Calendar.propTypes = { habits: PropTypes.shape([]) }
 
 Calendar.defaultProps = {
     habits: []
 }
 
-const mapStateToProps = state => {
-    return {
-        habits: state.habits
-    }
-}
-
-export default connect(mapStateToProps)(Calendar)
+export default Calendar
