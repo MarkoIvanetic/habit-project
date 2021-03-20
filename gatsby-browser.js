@@ -1,2 +1,3 @@
-import wrapWithProvider from "./config/wrapProvider"
-export const wrapRootElement = wrapWithProvider
+import App from './config/App'
+
+export const wrapRootElement = App

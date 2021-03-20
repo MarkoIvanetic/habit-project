@@ -27,7 +27,7 @@ import AddIcon from '@material-ui/icons/AddCircle'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 import { connect, useDispatch } from 'react-redux'
-import { getAllHabits, createHabit, deleteHabit } from '@api'
+import { createHabit, deleteHabit } from '@api'
 import { Layout } from '@components'
 
 const habitFormInitialState = {

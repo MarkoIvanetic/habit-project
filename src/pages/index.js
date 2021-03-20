@@ -16,8 +16,8 @@ const IndexPage = ({ habits }) => {
             <Layout>
                 <SEO title="Home" />
 
-                <div style={{ display: 'flex' }}></div>
-                <Calendar></Calendar>
+                <div style={{ display: 'flex' }} />
+                <Calendar />
             </Layout>
         </>
     )
