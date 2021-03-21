@@ -1,13 +1,20 @@
 import React from 'react'
 
 import { useGetHabits } from '@hooks'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider, useIsFetching } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: Infinity
+        }
+    }
+})
 
 const App = ({ children }) => {
-    const { status, data, error, isFetching } = useGetHabits()
+    useGetHabits()
+    const isFetching = useIsFetching()
     return children
 }
 
