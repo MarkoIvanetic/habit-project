@@ -26,7 +26,6 @@ import {
 import AddIcon from '@material-ui/icons/AddCircle'
 import DeleteIcon from '@material-ui/icons/Delete'
 
-import { connect, useDispatch } from 'react-redux'
 import { createHabit, deleteHabit } from '@api'
 import { Layout } from '@components'
 

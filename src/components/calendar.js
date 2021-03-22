@@ -1,28 +1,14 @@
 /* eslint-disable no-plusplus */
-import React, { useEffect, useMemo } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'gatsby'
 import moment from 'moment'
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
-import { makeStyles, styled } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import CalendarCell from './calendarCell'
-
-function getPreviousMonday() {
-    const date = new Date()
-    const day = date.getDay()
-    const prevMonday = new Date()
-    if (date.getDay() === 0) {
-        prevMonday.setDate(date.getDate() - 7)
-    } else {
-        prevMonday.setDate(date.getDate() - (day - 1))
-    }
-
-    return prevMonday
-}
 
 const generateWeekCalendar = () => {
     const calendar = []
-    const monday = moment(getPreviousMonday()).format()
+    const monday = moment().startOf('isoWeek').format()
 
     for (let i = 0; i < 7; i++) {
         calendar.push({
