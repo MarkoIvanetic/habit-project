@@ -1,9 +1,11 @@
 /* eslint-disable no-plusplus */
 import React from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import moment from 'moment'
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { getAllHabits } from '@api'
+import { useQuery } from 'react-query'
 import CalendarCell from './calendarCell'
 
 const generateWeekCalendar = () => {
@@ -24,14 +26,16 @@ const generateWeekCalendar = () => {
 
 const useStyles = makeStyles({
     table: {
-        minWidth: 650
+        minWidth: 700
     }
 })
 
 const weekCalendar = generateWeekCalendar()
 
-const Calendar = ({ habits }) => {
+const Calendar = () => {
     const classes = useStyles()
+
+    const { data: habits } = useQuery('habits', getAllHabits)
 
     return (
         <div>
@@ -60,7 +64,7 @@ const Calendar = ({ habits }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {habits.map(row => (
+                        {(habits || []).map(row => (
                             <TableRow key={row.id}>
                                 <TableCell component="th" scope="row">
                                     {row.title}
@@ -79,10 +83,10 @@ const Calendar = ({ habits }) => {
     )
 }
 
-Calendar.propTypes = { habits: PropTypes.shape([]) }
+// Calendar.propTypes = { habits: PropTypes.shape([]) }
 
-Calendar.defaultProps = {
-    habits: []
-}
+// Calendar.defaultProps = {
+//     habits: []
+// }
 
 export default Calendar

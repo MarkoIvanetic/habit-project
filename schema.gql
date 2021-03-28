@@ -5,19 +5,8 @@ type Habit {
     points: Int
 }
 
-type entryHabitTuple {
+type Entry {
     habit: String
     value: Int
     date: Date!
-    entry: WeeklyEntry!
-}
-
-type WeeklyEntry {
-    startDate: Date!
-    tracker: [entryHabitTuple]
-}
-
-type Query {
-    allHabits: [Habit!]
-    allWeeklyEntries: [WeeklyEntry!]
 }

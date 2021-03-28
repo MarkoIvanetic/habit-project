@@ -1,33 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import { createHabit, deleteHabit, getAllHabits } from '@api'
+import { Layout } from '@components'
 import {
-    makeStyles,
-    styled,
-    Grid,
-    FormControlLabel,
-    Checkbox,
-    FormControl,
-    TextField,
-    Dialog,
-    Typography,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
     IconButton,
+    makeStyles,
+    Paper,
     Table,
     TableBody,
     TableCell,
     TableContainer,
     TableHead,
     TableRow,
-    Paper
+    TextField,
+    Typography
 } from '@material-ui/core'
-
 import AddIcon from '@material-ui/icons/AddCircle'
 import DeleteIcon from '@material-ui/icons/Delete'
-
-import { createHabit, deleteHabit } from '@api'
-import { Layout } from '@components'
+import PropTypes from 'prop-types'
+import React, { useState } from 'react'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 
 const habitFormInitialState = {
     title: '',
@@ -48,29 +38,23 @@ const useStyles = makeStyles({
     }
 })
 
-const HabitEditor = ({ habits = [], location }) => {
-    const [data, setData] = useState(habitFormInitialState)
-    const [loading, setLoading] = useState(true)
+const HabitEditor = ({ location }) => {
+    const queryClient = useQueryClient()
 
-    // const dispatch = useDispatch()
+    const [formData, setFormData] = useState(habitFormInitialState)
 
-    // ************************************************************
+    const { data: habits } = useQuery('habits', getAllHabits)
 
-    const onCreateHabit = async newHabit => {
-        // const data = await createHabit(newHabit)
-        // dispatch({ type: 'CREATE_HABIT', payload: data })
-        // setData(habitFormInitialState)
-    }
-
-    const onDeleteHabit = async id => {
-        // deleteHabit(id)
-        //     .then(response => {
-        //         dispatch({ type: 'DELETE_HABIT', payload: { id } })
-        //     })
-        //     .catch(error => {})
-    }
-    // ************************************************************
-
+    const { mutate: createHabitMutation } = useMutation(createHabit, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('habits')
+        }
+    })
+    const { mutate: deleteHabitMutation } = useMutation(deleteHabit, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('habits')
+        }
+    })
     const classes = useStyles()
 
     return (
@@ -89,7 +73,7 @@ const HabitEditor = ({ habits = [], location }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {habits.map(habit => (
+                        {(habits || []).map(habit => (
                             <TableRow key={habit.id}>
                                 <TableCell component="th" scope="habit">
                                     {habit.title}
@@ -101,7 +85,7 @@ const HabitEditor = ({ habits = [], location }) => {
                                         color="secondary"
                                         aria-label="remove"
                                         component="span"
-                                        onClick={() => onDeleteHabit(habit.id)}>
+                                        onClick={() => deleteHabitMutation(habit.id)}>
                                         <DeleteIcon />
                                     </IconButton>
                                 </TableCell>
@@ -114,9 +98,9 @@ const HabitEditor = ({ habits = [], location }) => {
                                     label="Title"
                                     fullWidth
                                     onChange={e => {
-                                        setData({ ...data, title: e.target.value })
+                                        setFormData({ ...formData, title: e.target.value })
                                     }}
-                                    value={data.title}
+                                    value={formData.title}
                                 />
                             </TableCell>
                             <TableCell align="right">
@@ -125,9 +109,9 @@ const HabitEditor = ({ habits = [], location }) => {
                                     label="Metric"
                                     fullWidth
                                     onChange={e => {
-                                        setData({ ...data, metric: e.target.value })
+                                        setFormData({ ...formData, metric: e.target.value })
                                     }}
-                                    value={data.metric}
+                                    value={formData.metric}
                                 />
                             </TableCell>
                             <TableCell align="right">
@@ -137,9 +121,9 @@ const HabitEditor = ({ habits = [], location }) => {
                                     label="Points"
                                     fullWidth
                                     onChange={e => {
-                                        setData({ ...data, points: +e.target.value })
+                                        setFormData({ ...formData, points: +e.target.value })
                                     }}
-                                    value={data.points}
+                                    value={formData.points}
                                 />
                             </TableCell>
                             <TableCell>
@@ -147,7 +131,7 @@ const HabitEditor = ({ habits = [], location }) => {
                                     color="primary"
                                     aria-label="create new"
                                     component="span"
-                                    onClick={() => onCreateHabit(data)}>
+                                    onClick={() => createHabitMutation(formData)}>
                                     <AddIcon />
                                 </IconButton>
                             </TableCell>
@@ -159,4 +143,7 @@ const HabitEditor = ({ habits = [], location }) => {
     )
 }
 
+HabitEditor.propTypes = {
+    location: PropTypes.string
+}
 export default HabitEditor
