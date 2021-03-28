@@ -43,6 +43,8 @@ const HabitEditor = ({ location }) => {
 
     const [formData, setFormData] = useState(habitFormInitialState)
 
+    const { data: habits } = useQuery('habits', getAllHabits)
+
     const { mutate: createHabitMutation } = useMutation(createHabit, {
         onSuccess: () => {
             queryClient.invalidateQueries('habits')
@@ -53,9 +55,6 @@ const HabitEditor = ({ location }) => {
             queryClient.invalidateQueries('habits')
         }
     })
-
-    const { data: habits } = useQuery('habits', getAllHabits)
-
     const classes = useStyles()
 
     return (

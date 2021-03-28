@@ -1,7 +1,11 @@
+require('dotenv').config({
+    path: `.env.${process.env.NODE_ENV}`
+})
+
 module.exports = {
     siteMetadata: {
         title: `Catalina Wine Mixer`,
-        description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+        descrition: '',
         author: `@gatsbyjs`
     },
     plugins: [
@@ -11,6 +15,26 @@ module.exports = {
             options: {
                 name: `images`,
                 path: `${__dirname}/src/images`
+            }
+        },
+        {
+            resolve: `gatsby-source-faunadb`,
+            options: {
+                // The secret for the key you're using to connect to your Fauna database.
+                // You can generate on of these in the "Security" tab of your Fauna Console.
+                secret: process.env.FAUNA_SERVER_KEY,
+                // The name of the index you want to query
+                // You can create an index in the "Indexes" tab of your Fauna Console.
+                index: `allHabits`,
+                // If your index requires arguments, you can specify them like this.
+                // You can omit this property if your index doesn't need any.
+                // arguments: ['bird'],
+                // This is the name under which your data will appear in Gatsby GraphQL queries
+                // The following will create queries called `allBird` and `bird`.
+                type: 'allHabits',
+                // If you need to limit the number of documents returned, you can specify a
+                // maximum number to read.
+                size: 100
             }
         },
         `gatsby-transformer-sharp`,

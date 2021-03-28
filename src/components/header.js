@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { LinearProgress } from '@material-ui/core'
 import { Link } from 'gatsby'
 import { useIsFetching } from 'react-query'
+import { LinearProgress } from './header.style'
 
 const Header = ({ siteTitle }) => {
-    const isFetching = useIsFetching()
+    const isFetchingRQ = useIsFetching()
+    const [isFetching, setIsFetching] = useState(false)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsFetching(isFetchingRQ)
+        }, 300)
+    }, [isFetchingRQ])
+
     return (
         <header
             style={{
@@ -32,7 +40,7 @@ const Header = ({ siteTitle }) => {
             </div>
 
             {/* {isFetching ? <CircularProgress style={{ position: 'absolute', top: '0', right: '0' }} /> : null} */}
-            {isFetching ? <LinearProgress style={{ position: 'absolute', bottom: '0' }} color="secondary" /> : null}
+            {isFetching ? <LinearProgress color="secondary" /> : null}
         </header>
     )
 }
