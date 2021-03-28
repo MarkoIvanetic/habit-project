@@ -1,8 +1,8 @@
-import { LinearProgress } from '@material-ui/core'
-import { useIsFetching } from 'react-query'
-import { Link } from 'gatsby'
-import PropTypes from 'prop-types'
 import React from 'react'
+import PropTypes from 'prop-types'
+import { LinearProgress } from '@material-ui/core'
+import { Link } from 'gatsby'
+import { useIsFetching } from 'react-query'
 
 const Header = ({ siteTitle }) => {
     const isFetching = useIsFetching()
