@@ -4,6 +4,7 @@ const deleteHabit = id =>
     client
         .query(q.Delete(q.Ref(q.Collection('Habit'), id)))
         .then(res => res)
+        // eslint-disable-next-line
         .catch(err => console.warn(err.message))
 
 export default deleteHabit

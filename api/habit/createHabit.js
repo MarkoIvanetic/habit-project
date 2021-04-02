@@ -15,6 +15,7 @@ const createHabit = data =>
             })
         )
         .then(ret => transform(ret))
+        // eslint-disable-next-line
         .catch(err => console.warn(err))
 
 export default createHabit

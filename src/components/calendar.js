@@ -45,7 +45,10 @@ const Calendar = () => {
         }
     })
 
-    console.log(entries)
+    const upsertEntry = (habit, { day }, value) => {
+        console.log(habit)
+        console.log(day.format())
+    }
 
     if (isHabitsLoading || isEntriesLoading) {
         return <span>Loading...</span>
@@ -77,15 +80,19 @@ const Calendar = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {habits.map(row => (
-                            <TableRow key={row.id}>
+                        {habits.map(habit => (
+                            <TableRow key={habit.id}>
                                 <TableCell component="th" scope="row">
-                                    {row.title}
+                                    {habit.title}
                                 </TableCell>
-                                <TableCell align="right">{row.metric}</TableCell>
-                                <TableCell align="right">{row.points}</TableCell>
+                                <TableCell align="right">{habit.metric}</TableCell>
+                                <TableCell align="right">{habit.points}</TableCell>
                                 {weekCalendar.map(day => (
-                                    <CalendarCell key={day.index} data={row} />
+                                    <CalendarCell
+                                        key={day.index}
+                                        data={habit}
+                                        onChange={value => upsertEntry(habit, day, value)}
+                                    />
                                 ))}
                             </TableRow>
                         ))}

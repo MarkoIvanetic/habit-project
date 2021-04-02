@@ -7,7 +7,9 @@ const editHabit = (habitId, newData) =>
                 data: newData
             })
         )
+        // eslint-disable-next-line
         .then(ret => console.log(ret))
+        // eslint-disable-next-line
         .catch(err => console.warn(err))
 
 export default editHabit

@@ -17,7 +17,7 @@ const TableCell = styled(RaTableCell)(
     { name: 'HbtTableCell' }
 )
 
-const CalendarCell = ({ habits, data }) => {
+const CalendarCell = ({ habits, data, onChange }) => {
     const [anchorEl, setAnchorEl] = useState(null)
     const [score, setScore] = useState(0)
 
@@ -52,10 +52,10 @@ const CalendarCell = ({ habits, data }) => {
                         horizontal: 'center'
                     }}>
                     <Grid container direction="column" justify="center" alignItems="center">
-                        <Button size="small" onClick={() => setScore(score + data.points)}>
+                        <Button size="small" onClick={() => onChange(score + data.points)}>
                             <AddCircleOutline />
                         </Button>
-                        <Button size="small" onClick={() => setScore(score > data.points ? score - data.points : 0)}>
+                        <Button size="small" onClick={() => onChange(score > data.points ? score - data.points : 0)}>
                             <RemoveCircleOutline />
                         </Button>
                     </Grid>
