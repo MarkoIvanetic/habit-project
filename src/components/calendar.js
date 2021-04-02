@@ -4,8 +4,8 @@ import React from 'react'
 import moment from 'moment'
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { getAllHabits } from '@api'
-import { useQuery } from 'react-query'
+import { createEntry, getAllEntries, getAllHabits } from '@api'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import CalendarCell from './calendarCell'
 
 const generateWeekCalendar = () => {
@@ -26,7 +26,7 @@ const generateWeekCalendar = () => {
 
 const useStyles = makeStyles({
     table: {
-        minWidth: 700
+        minWidth: 650
     }
 })
 
@@ -34,9 +34,22 @@ const weekCalendar = generateWeekCalendar()
 
 const Calendar = () => {
     const classes = useStyles()
+    const queryClient = useQueryClient()
 
-    const { data: habits } = useQuery('habits', getAllHabits)
+    const { data: habits, isLoading: isHabitsLoading } = useQuery('habits', getAllHabits, { initialData: [] })
+    const { data: entries, isLoading: isEntriesLoading } = useQuery('entries', getAllEntries, { initialData: [] })
 
+    const mutation = useMutation(() => createEntry(), {
+        onSuccess: () => {
+            queryClient.invalidateQueries('entries')
+        }
+    })
+
+    console.log(entries)
+
+    if (isHabitsLoading || isEntriesLoading) {
+        return <span>Loading...</span>
+    }
     return (
         <div>
             <TableContainer component={Paper}>
@@ -64,7 +77,7 @@ const Calendar = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {(habits || []).map(row => (
+                        {habits.map(row => (
                             <TableRow key={row.id}>
                                 <TableCell component="th" scope="row">
                                     {row.title}

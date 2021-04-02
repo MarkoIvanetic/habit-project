@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import PropTypes, { number, shape } from 'prop-types'
+import PropTypes from 'prop-types'
 import { AddCircleOutline, RemoveCircleOutline } from '@material-ui/icons'
 import { Button, Grid, Popover, TableCell as RaTableCell, Typography } from '@material-ui/core'
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline'
@@ -66,10 +66,10 @@ const CalendarCell = ({ habits, data }) => {
 }
 
 CalendarCell.propTypes = {
-    data: shape({
-        points: number
+    data: PropTypes.shape({
+        points: PropTypes.number
     }),
-    habits: shape([])
+    habits: PropTypes.arrayOf(PropTypes.shape({}))
 }
 
 CalendarCell.defaultProps = {

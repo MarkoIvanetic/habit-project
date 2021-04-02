@@ -7,32 +7,17 @@ const transform = response => {
     }
 }
 
-const createWeeklyEntry = data => {
-    return client
-        .query(
-            q.Create(q.Collection('WeeklyEntry'), {
-                data
-            })
-        )
-        .then(ret => transform(ret))
-        .catch(err => console.warn(err))
-}
-
-const createWeeklyEntries = data => {
-    return client
-        .query(
-            q.Map(
-                data,
-                q.Lambda(
-                    entry,
-                    q.Create(q.Collection('WeeklyEntry'), {
-                        data: entry
-                    })
-                )
+const createEntry = data => {
+    return (
+        client
+            .query(
+                q.Create(q.Collection('Entry'), {
+                    data
+                })
             )
-        )
-        .then(ret => transform(ret))
-        .catch(err => console.warn(err))
+            .then(ret => transform(ret))
+            // eslint-disable-next-line
+            .catch(err => console.warn(err))
+    )
 }
-
-export { createWeeklyEntry, createWeeklyEntries }
+export { createEntry }
